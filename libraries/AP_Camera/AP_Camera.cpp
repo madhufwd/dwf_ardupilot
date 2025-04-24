@@ -395,19 +395,22 @@ MAV_RESULT AP_Camera::handle_command(const mavlink_command_int_t &packet)
         return MAV_RESULT_UNSUPPORTED;
     case MAV_CMD_CAMERA_TRACK_POINT:
         if (set_tracking(TrackingType::TRK_POINT, Vector2f{packet.param1, packet.param2}, Vector2f{})) {
+            gcs().send_text(MAV_SEVERITY_INFO, "track_point = %f, %f", packet.param1, packet.param2);
             return MAV_RESULT_ACCEPTED;
         }
-        return MAV_RESULT_UNSUPPORTED;
+        return MAV_RESULT_ACCEPTED;
     case MAV_CMD_CAMERA_TRACK_RECTANGLE:
         if (set_tracking(TrackingType::TRK_RECTANGLE, Vector2f{packet.param1, packet.param2}, Vector2f{packet.param3, packet.param4})) {
+            gcs().send_text(MAV_SEVERITY_INFO, "track_rect = %f, %f, %f, %f", packet.param1, packet.param2, packet.param3, packet.param4);
             return MAV_RESULT_ACCEPTED;
         }
-        return MAV_RESULT_UNSUPPORTED;
+        return MAV_RESULT_ACCEPTED;
     case MAV_CMD_CAMERA_STOP_TRACKING:
         if (set_tracking(TrackingType::TRK_NONE, Vector2f{}, Vector2f{})) {
+            gcs().send_text(MAV_SEVERITY_INFO, "track_stop ");
             return MAV_RESULT_ACCEPTED;
         }
-        return MAV_RESULT_UNSUPPORTED;
+        return MAV_RESULT_ACCEPTED;
     case MAV_CMD_VIDEO_START_CAPTURE:
     case MAV_CMD_VIDEO_STOP_CAPTURE:
     {
