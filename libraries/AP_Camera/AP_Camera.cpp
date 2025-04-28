@@ -14,6 +14,7 @@
 #include "AP_Camera_MAVLink.h"
 #include "AP_Camera_MAVLinkCamV2.h"
 #include "AP_Camera_Scripting.h"
+#include <GCS_MAVLink/GCS.h>
 
 const AP_Param::GroupInfo AP_Camera::var_info[] = {
 
